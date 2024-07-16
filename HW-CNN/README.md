@@ -23,15 +23,15 @@ Develop an image classification model using a Convolutional Neural Network (CNN)
 
 ## Dataset Description 📦
 ### Source and Collection Method:
-This dataset comprises images of monitor lizards found in Thailand, specifically focusing on four distinct species. The images were collected using the "Download All Images" extension in Google Chrome, primarily from Google image searches and the iNaturalist platform.
+- This dataset contains images of monitor lizards from Thailand, focusing on four specific species. Images were gathered using the "Download All Images" extension in Google Chrome, primarily sourced from Google image searches and the iNaturalist platform.
 
-### Dataset Composition:
+### Composition:
 - **Total Images:** 400
-- **Classes:** 4 (corresponding to the four monitor lizard species)
+- **Classes:** 4 (each corresponding to a monitor lizard species)
 - **Images per Class:** 100
 
 ### Dataset Balance:
-The dataset is balanced, with an equal number of images representing each of the four monitor lizard classes. This balanced distribution is crucial for ensuring unbiased model training and evaluation.
+- The dataset is evenly balanced with 100 images per class, ensuring unbiased model training and evaluation.
 
 ### Monitor Lizard Species:
 1. Water Monitor (Varanus salvator)
@@ -40,12 +40,11 @@ The dataset is balanced, with an equal number of images representing each of the
 4. Dumeril's Monitor (Varanus dumerilii)
 
 
+
 ## Data Preparation 🧼
 ### Image Collection
 - Images were collected from Internet sources.
 - Unnecessary images were manually removed.
-
-### Pre-processing
 - Images were saved in `.jpg` or `.jpeg` format.
 - Rescaled images to 224x224 pixels.
 
@@ -75,19 +74,13 @@ dataaug = tf.keras.Sequential([
 ```
 
 
-## Model ⚒️
+## Model Architecture⚒️
 
 In this experiment, we will compare the performance of three pre-trained CNN models:
 **VGG16**, **ResNet50**, **EfficientNetV2B0**
 
-The table provides information on the performance and characteristics of three pre-trained models.
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/pretrained.png" width="700"> 
-</div>
-
-### Model Architecture: Fine-Tuned for Thai Monitor Lizard Classification
 The fine-tuning process was tailored to each pre-trained model, considering their unique architectures and characteristics.
+
 <div align="center">
 <img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/model_architecture.png" width="700"> 
 </div>
@@ -99,20 +92,41 @@ Each pre-trained model was fine-tuned extensively, with numerous iterations of h
 </div>
 
 
-
-
 ## Experiment results 📊
 <div align="center">
   
-<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/results.png" height="400"> 
-<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/compare.png" height="300"> 
+<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/results.png" width="700"> 
+<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/compare.png" width="700"> 
 
 </div>
 <br><br>
 
-- EfficientNetV2B0 shows superior performance in both training and validation accuracy compared to VGG16 and ResNet50.
-- EfficientNetV2B0 emerges as the top performer after fine-tuning, achieving the highest accuracy, precision, recall, and F1-score among the three models.
+- `EfficientNetV2B0`🏆 shows superior performance in both training and validation accuracy compared to `VGG16` and `ResNet50`.
+- `EfficientNetV2B0` emerges as the top performer after fine-tuning, achieving the highest accuracy, precision, recall, and F1-score among the three models.
 - The results demonstrate that fine-tuning significantly enhances the performance of pre-trained models on this specific task of classifying Thai monitor lizard species.
+
+<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/Grad-CAM.png" width="1000"> 
+
+## Discussion : Grad-Cam checking 🔍
+- Scoring system for evaluating Grad-CAM results based on correct predictions of 64 images.
+
+<div align="center">
+    
+| Score | Description                             | Class No. of Pics | Percent   |
+|-------|-----------------------------------------|-------------------|-----------|
+| 0     | No relevance to lizard detected         | 23                | 35.94%    |
+| 1     | Partial detection of lizard            | 14                | 21.88%    |
+| 2     | Full detection of the entire lizard    | 27                | 42.19%    |
+| Total |                                         | 64                | 100.00%   |
+
+<img src="https://raw.githubusercontent.com/bubblebolt/deep-learning/main/HW-CNN/Pics/scoring.png" width="1000"> 
+
+</div>
+
+
+
+- **The confusion matrix indicates high values, suggesting some confusion among classes. However, Grad-CAM analysis reveals that approximately 35% of the highlighted areas are unrelated to the correct classification, despite the high scores in the confusion matrix.**
+  
 
 
 ## Collaborators 🤝🏻
